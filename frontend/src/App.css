@@ -1,0 +1,121 @@
+.app-root {
+  background: black;
+  color: white;
+  min-height: 100vh;
+  padding: 16px 24px;
+  font-family: system-ui, sans-serif;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+  margin-bottom: 16px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.control-group label {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.control-group select,
+.control-group input[type="number"],
+.control-group input[type="file"] {
+  background: #1a1a1a;
+  color: white;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.control-group input[type="number"] {
+  width: 60px;
+}
+
+.control-group button {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.control-group button:hover:not(:disabled) {
+  background: #3a3a3a;
+}
+
+.control-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.inline-fields {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mini-label {
+  font-size: 13px;
+  color: #ccc;
+}
+
+.readout .readout-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4fa8ff;
+}
+
+.file-order-hint {
+  font-size: 11px;
+  color: #888;
+  max-width: 220px;
+}
+
+.error-banner {
+  color: #ff6b6b;
+  font-size: 13px;
+  align-self: center;
+}
+
+.plots-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.plot-3d {
+  flex: 1 1 55%;
+  min-width: 500px;
+}
+
+.plot-2d {
+  flex: 1 1 40%;
+  min-width: 400px;
+}
+
+.empty-state {
+  color: #888;
+  text-align: center;
+  margin-top: 80px;
+  font-size: 15px;
+}
