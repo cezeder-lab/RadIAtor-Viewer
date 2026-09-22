@@ -1,6 +1,9 @@
 import type { EncodedArray, SliceResponse, UploadResponse } from "./types";
 
-const BASE_URL = "http://localhost:8000";
+// In dev, the frontend runs on Vite's port (5173) and the API on 8000.
+// In production/desktop, both are served from the same FastAPI origin
+// (built frontend + API on :8000), so relative paths avoid needing CORS.
+const BASE_URL = window.location.port === "5173" ? "http://localhost:8000" : "";
 
 export async function uploadFiles(files: File[]): Promise<UploadResponse> {
   const form = new FormData();

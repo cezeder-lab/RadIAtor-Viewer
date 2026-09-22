@@ -69,6 +69,36 @@ Ouvrir http://localhost:5173 dans le navigateur, charger les fichiers
 `.mat` (sélectionner `Element0.mat` + `Element1..N.mat` ensemble), cliquer
 sur "Charger".
 
+## Application Windows (.exe)
+
+Pas besoin d'ouvrir un navigateur ni un terminal : `desktop.py` lance le
+serveur FastAPI en arrière-plan et l'affiche dans une fenêtre native
+(via `pywebview`), et `PyInstaller` empaquette le tout en un seul `.exe`.
+
+**Important** : PyInstaller ne fait pas de cross-compilation — le `.exe`
+doit être construit *sur une machine Windows* (celle-ci a servi à écrire et
+valider tout le code, y compris le démarrage du serveur, mais pas à
+produire le binaire final). Sur ta machine Windows, avec Python 3.11+ et
+Node.js installés :
+
+```bat
+build_windows.bat
+```
+
+Ce script installe les dépendances frontend/backend, build le frontend,
+puis génère `backend\dist\RadIAtorViewer\RadIAtorViewer.exe`. Tu peux
+ensuite déplacer ce dossier où tu veux et lancer l'exe directement.
+
+Étapes manuelles équivalentes si tu préfères :
+
+```bash
+cd frontend && npm install && npm run build && cd ..
+cd backend
+python -m venv .venv && .venv\Scripts\activate
+pip install -r requirements-desktop.txt
+pyinstaller --noconfirm desktop.spec
+```
+
 ## Format de fichier attendu
 
 Chaque `.mat` doit contenir une struct `data` avec :

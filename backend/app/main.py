@@ -1,13 +1,16 @@
 from __future__ import annotations
 
 import os
+import sys
 import tempfile
 import uuid
+from pathlib import Path
 from typing import List
 
 import numpy as np
 from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .mat_parser import MatParseError, encode_array, parse_mvg_mat
 
@@ -109,3 +112,21 @@ def slice_frequency(upload_id: str, freq_idx: int = Query(..., ge=0)):
             for p in session["patterns"]
         ]
     }
+
+
+def _find_frontend_dist() -> Path | None:
+    """Locate the built frontend (frontend/dist), whether running from
+    source or from a PyInstaller onefile bundle (files unpacked under
+    sys._MEIPASS at runtime, see desktop.spec's `datas`)."""
+    if getattr(sys, "frozen", False):
+        base = Path(getattr(sys, "_MEIPASS"))
+        candidate = base / "frontend_dist"
+    else:
+        candidate = Path(__file__).resolve().parents[2] / "frontend" / "dist"
+    return candidate if candidate.is_dir() else None
+
+
+# Mounted last so it only catches paths not matched by the API routes above.
+_frontend_dist = _find_frontend_dist()
+if _frontend_dist is not None:
+    app.mount("/", StaticFiles(directory=str(_frontend_dist), html=True), name="frontend")
